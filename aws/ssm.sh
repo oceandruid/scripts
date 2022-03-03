@@ -21,6 +21,11 @@ function ssm() {
 				shift
 				;;
 
+			--profile)
+				PROFILE="$2"
+				shift
+				;;
+
 			--help|*)
 				usage
 				return 1
@@ -38,7 +43,16 @@ function ssm() {
 		echo
 		echo 'No region specified. Defaulting to us-east-1.'
 		REGION='us-east-1'
+	elif [ -z "$PROFILE" ]; then
+		echo
+		echo 'No profile specified. Defaulting to default.'
+		PROFILE='default'
 	fi
+
+	echo
+	echo "Logging into AWS..."
+	aws sso login --profile $PROFILE
+	export AWS_PROFILE="$PROFILE"
 
 	echo
 	echo "Connecting to Instance $INSTANCE in the $REGION region..."
@@ -50,4 +64,5 @@ function usage() {
 	echo 'Example usage: ssm --instance <instance id> [--region <region>]'
 	echo '<instance id> Required. Instance ID obtained from EC2 Dashboard. Ex. i-XXXXXXXXXXXXXXXX'
 	echo '<region> Optional. Specify the AWS region to connect to. Defaults to us-east-1'
+	echo '<profile> Optional. Specify the AWS SSO profile to use. Defaults to default'
 }
