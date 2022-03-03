@@ -56,7 +56,7 @@ function ssm() {
 
 	echo
 	echo "Connecting to Instance $INSTANCE in the $REGION region..."
-	aws ssm start-session --target $INSTANCE --region $REGION
+	aws ssm start-session --target $INSTANCE --region $REGION --profile $PROFILE
 }
 
 function usage() {
