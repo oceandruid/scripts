@@ -34,22 +34,3 @@ function siren() {
 		echo "\t up => start Siren environment"
 	fi
 }
-
-function phoenix() {
-	if [ "dir" = "$1" ]; then
-		cd $HOME/Repos/phoenix
-	elif [ "up" = "$1" ]; then
-		phoenix dir
-		vagrant up
-		cd -
-	elif [ "down" = "$1" ]; then
-		phoenix dir
-		vagrant halt
-		cd -
-	else
-		echo "Undefined command. Try:"
-		echo "\t dir => enter Phoenix directory"
-		echo "\t up => start Phoenix environment"
-		echo "\t down => stop Phoenix environment"
-	fi
-}
